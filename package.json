@@ -1,0 +1,30 @@
+{
+  "name": "@coccoto/node-dbmanager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "release": "run-s clean build release:publish",
+    "clean": "rimraf dist",
+    "build": "tsc",
+    "release:publish": "npm publish"
+  },
+  "author": "",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@coccoto/node-logmanager": "^1.6.0",
+    "@types/node": "^20.11.5",
+    "dotenv": "^16.3.2",
+    "mysql2": "^3.7.1",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3"
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ]
+}
