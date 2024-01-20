@@ -1,31 +1,19 @@
 import mysql, { Connection, RowDataPacket } from 'mysql2/promise'
 import { logger } from '@coccoto/node-logmanager'
+import dotenv from 'dotenv'
 
-export type Config = {
-    host: string
-    user: string
-    password: string
-    database: string
-}
+dotenv.config()
 
-export const initConfig = () => {
-    return {
-        host: '',
-        user: '',
-        password: '',
-        database: '',
-    }
+type Config = {
+    host: string,
+    user: string,
+    password: string,
+    database: string,
 }
 
 export class DBManager {
 
     private db: Connection | null = null
-
-    private config: Config = initConfig()
-
-    constructor(config: Config) {
-        this.config = config
-    }
 
     async connect(): Promise<void> {
         try {
@@ -33,11 +21,18 @@ export class DBManager {
                 return
             }
 
-            if (! this.config.host || ! this.config.user || ! this.config.password || ! this.config.database) {
+            if (! process.env['HOST'] || ! process.env['USER'] || ! process.env['PASSWORD'] || ! process.env['DATABASE']) {
                 throw new Error('The .env file is not configured.')
             }
 
-            this.db = await mysql.createConnection(this.config)
+            const config: Config = {
+                host: process.env['HOST'],
+                user: process.env['USER'],
+                password: process.env['PASSWORD'],
+                database: process.env['DATABASE'],
+            }
+
+            this.db = await mysql.createConnection(config)
             return
 
         } catch (error: unknown) {
