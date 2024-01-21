@@ -1,20 +1,12 @@
-import mysql, { Connection, RowDataPacket } from 'mysql2/promise'
+import mysql from 'mysql2/promise'
 import { logger } from '@coccoto/node-logmanager'
 import dotenv from 'dotenv'
 
 dotenv.config()
 
-type Config = {
-    host: string,
-    user: string,
-    password: string,
-    database: string,
-    authPlugin: 'caching_sha2_password',
-}
-
 export class DBManager {
 
-    private db: Connection | null = null
+    private db: mysql.Connection | null = null
 
     async connect(): Promise<void> {
         try {
@@ -22,16 +14,16 @@ export class DBManager {
                 return
             }
 
-            if (! process.env['HOST'] || ! process.env['USER'] || ! process.env['PASSWORD'] || ! process.env['DATABASE']) {
+            if (! process.env['DB_HOST'] || ! process.env['DB_USER'] || ! process.env['DB_PASSWORD'] || ! process.env['DB_DATABASE']) {
                 throw new Error('The .env file is not configured.')
             }
 
-            const config: Config = {
-                host: process.env['HOST'],
-                user: process.env['USER'],
-                password: process.env['PASSWORD'],
-                database: process.env['DATABASE'],
-                authPlugin: 'caching_sha2_password'
+            const config: mysql.ConnectionOptions = {
+                host: process.env['DB_HOST'],
+                user: process.env['DB_USER'],
+                password: process.env['DB_PASSWORD'],
+                database: process.env['DB_DATABASE'],
+
             }
 
             this.db = await mysql.createConnection(config)
@@ -64,7 +56,7 @@ export class DBManager {
             if (this.db === null) {
                 throw new Error('Database connection is not established.')
             }
-            const [rows] = await this.db.execute<RowDataPacket[]>(query)
+            const [rows] = await this.db.execute<mysql.RowDataPacket[]>(query)
             return rows as T[]
 
         } catch (error: unknown) {
