@@ -9,6 +9,7 @@ type Config = {
     user: string,
     password: string,
     database: string,
+    authPlugin: 'caching_sha2_password',
 }
 
 export class DBManager {
@@ -30,6 +31,7 @@ export class DBManager {
                 user: process.env['USER'],
                 password: process.env['PASSWORD'],
                 database: process.env['DATABASE'],
+                authPlugin: 'caching_sha2_password'
             }
 
             this.db = await mysql.createConnection(config)
