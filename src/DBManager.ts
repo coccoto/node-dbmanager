@@ -1,6 +1,7 @@
 import mysql from 'mysql2/promise'
 import { logger } from '@coccoto/node-logmanager'
 import dotenv from 'dotenv'
+import fs from 'fs';
 
 dotenv.config()
 
@@ -62,6 +63,16 @@ export class DBManager {
 
         } catch (error: unknown) {
             logger.error('Failed to execute the SELECT. Error: ' + (error as Error).message)
+            throw error
+        }
+    }
+
+    async readFile(filePath: string): Promise<string> {
+        try {
+            const data = fs.readFileSync(filePath, 'utf8')
+            return data
+        } catch (error) {
+            logger.error(`Failed to read the file at path: "${filePath}". Error: ${(error as Error).message}`)
             throw error
         }
     }
