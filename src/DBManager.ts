@@ -28,7 +28,7 @@ export class DBManager {
             }
             this.db = await mysql.createConnection(config)
 
-            logger.info(`Connected to database successfully. Host: ${process.env['DB_HOST']} User: ${process.env['DB_USER']} Database: ${process.env['DB_DATABASE']}`);
+            logger.info(`Connection to the database was successful. Host: ${process.env['DB_HOST']} User: ${process.env['DB_USER']} Database: ${process.env['DB_DATABASE']}`);
             return
 
         } catch (error: unknown) {
