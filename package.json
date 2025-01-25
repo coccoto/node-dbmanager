@@ -1,6 +1,6 @@
 {
   "name": "@coccoto/node-dbmanager",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@coccoto/node-logmanager": "^2.0.0",
+    "@coccoto/node-logmanager": "^2.0.2",
     "@types/node": "^22.10.10",
     "dotenv": "^16.4.7",
     "mysql2": "^3.12.0",
