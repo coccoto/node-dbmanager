@@ -18,7 +18,6 @@ export class DBManager {
             if (! process.env['DB_HOST'] || ! process.env['DB_USER'] || ! process.env['DB_PASSWORD'] || ! process.env['DB_DATABASE']) {
                 throw new Error('The .env file is not configured.')
             }
-
             const config: mysql.ConnectionOptions = {
                 host: process.env['DB_HOST'],
                 user: process.env['DB_USER'],
