@@ -1,2 +1,1 @@
-import { DBManager } from './DBManager'
-export { DBManager }
+export { DBManager } from './DBManager'
