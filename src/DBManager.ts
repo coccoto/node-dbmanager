@@ -62,12 +62,12 @@ export class DBManager {
         }
     }
 
-    async select<T>(query: string): Promise<T[]> {
+    async select<T>(query: string, params: any[] = []): Promise<T[]> {
         try {
             if (this.dbConnection === null) {
                 throw new Error('Database connection is not established.')
             }
-            const [rows] = await this.dbConnection.execute<mysql.RowDataPacket[]>(query)
+            const [rows] = await this.dbConnection.execute<mysql.RowDataPacket[]>(query, params)
             return rows as T[]
 
         } catch (error: unknown) {
